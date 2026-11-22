@@ -1,0 +1,28 @@
+# Python runtime and local configuration
+__pycache__/
+*.py[cod]
+*.log
+.env
+.venv/
+venv/
+
+# Frontend dependencies and build output
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Local ML caches and generated reports
+ml/**/__pycache__/
+ml/**/training_*.png
+ml/PulseNet_Models_Doc.html
+ml/PulseNet_AI_Models_Comprehensive_Specification.pdf
+/SisFall/SisFall_dataset/
+/bidmc-ppg-and-respiration-dataset-1.0.0/
+/ml/fall_model/*.npy
+/ml/vitals_model/*.npy
+
+# Local database and editor files
+*.sqlite
+*.db
+.vscode/
+.idea/
