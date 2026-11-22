@@ -89,6 +89,21 @@ For hardware use, update the ESP32 Wi-Fi credentials and backend IP using
 `hardware/esp32_vitals/README.md`, then flash
 `hardware/esp32_vitals/esp32_vitals.ino`.
 
+## Render deployment
+
+Deploy the backend as a Web Service from the repository root:
+
+- Build command: `pip install -r backend/requirements.txt`
+- Start command: `cd backend && python -m uvicorn main:app --host 0.0.0.0 --port $PORT`
+- Environment: set `SECRET_KEY`, `DATABASE_URL` (the PostgreSQL internal URL),
+  and `CORS_ORIGINS` (the deployed frontend origin).
+
+Deploy `frontend/` as a Static Site with `npm install && npm run build`,
+publish `dist`, and set `VITE_API_BASE_URL` to the backend's HTTPS URL. Add a
+rewrite from `/*` to `/index.html` for the client-side routes. Render's free
+PostgreSQL databases expire after 30 days; use a durable database plan for
+ongoing production data.
+
 Local demo accounts are available only when `SEED_DEMO_DATA=true`:
 
 - Doctor: `doctor` / `doctor123`

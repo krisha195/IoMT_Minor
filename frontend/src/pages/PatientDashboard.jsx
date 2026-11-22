@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import api from '../api'
+import api, { getWebSocketUrl } from '../api'
 import Sidebar from '../components/Sidebar'
 import VitalCard from '../components/VitalCard'
 import VitalsChart from '../components/VitalsChart'
@@ -118,8 +118,7 @@ export default function PatientDashboard() {
     if (!patientId) return
     fetchData(); fetchUnread()
     const interval = setInterval(() => { fetchData(); fetchUnread() }, 3000)
-    const wsHost = window.location.hostname || 'localhost'
-    wsRef.current = new WebSocket(`ws://${wsHost}:8001/ws/alerts`)
+    wsRef.current = new WebSocket(getWebSocketUrl('/ws/alerts'))
     wsRef.current.onmessage = e => {
       try {
         const msg = JSON.parse(e.data)

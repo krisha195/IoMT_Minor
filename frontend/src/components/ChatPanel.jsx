@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import api from '../api'
+import api, { getWebSocketUrl } from '../api'
 
 function Avatar({ name, color }) {
   return (
@@ -44,8 +44,7 @@ export default function ChatPanel({ currentUserId, otherUserId, otherName }) {
     if (!currentUserId || !otherUserId) return
 
     wsRef.current?.close()
-    const wsHost = window.location.hostname || 'localhost'
-    const socket = new WebSocket(`ws://${wsHost}:8001/ws/chat/${currentUserId}`)
+    const socket = new WebSocket(getWebSocketUrl(`/ws/chat/${currentUserId}`))
     wsRef.current = socket
 
     socket.onopen = () => setWsConnected(true)
